@@ -28,6 +28,7 @@ BaselineOfIceberg >> baseline: spec [
 			package: 'Iceberg-Plugin-Migration' with: [ spec requires: #('Iceberg-Plugin') ];
 			package: 'Iceberg-Metacello-Integration' with: [ spec requires: #('Iceberg')];
 			package: 'Iceberg-TipUI' with: [ spec requires: #('Iceberg') ];
+			package: 'Iceberg-TipUI-Morphic' with: [ spec requires: #('Iceberg-TipUI') ];
 			package: 'Iceberg-Memory' with: [ spec requires: #('Iceberg') ];
 			"tests"
 			package: 'Iceberg-Tests' with: [ spec requires: #('Iceberg' 'Iceberg-Memory') ];
@@ -43,6 +44,7 @@ BaselineOfIceberg >> baseline: spec [
 				minimal 
 				'Iceberg-Metacello-Integration' 
 				'Iceberg-TipUI'
+				'Iceberg-TipUI-Morphic'
 				'Iceberg-Plugin' 
 				'Iceberg-Plugin-Metacello'
 				'Iceberg-Plugin-GitHub'

@@ -4,15 +4,15 @@ This class is call by Spec2 to extend the default stylesheet.
 Check its superclass to understand the way of working.
 "
 Class {
-	#name : 'IceTipStyleContributor',
+	#name : 'IceTipMorphicStyleContributor',
 	#superclass : 'StPharoStyleContributor',
-	#category : 'Iceberg-TipUI-Styles',
-	#package : 'Iceberg-TipUI',
+	#category : 'Iceberg-TipUI-Morphic-Styles',
+	#package : 'Iceberg-TipUI-Morphic',
 	#tag : 'Styles'
 }
 
 { #category : 'styles' }
-IceTipStyleContributor >> styleSheetContribution [
+IceTipMorphicStyleContributor >> styleSheetContribution [
 	
 	^ SpStyle newApplication 
 		addClass: 'libgit2NotAvailable' with: [ :aClass | aClass 
