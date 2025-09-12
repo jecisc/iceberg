@@ -53,24 +53,23 @@ IceTipManagePackagesCommand class >> shouldGroupRepositories: aBoolean [
 IceTipManagePackagesCommand >> execute [
 
 	| browser group |
-	browser := (IceTipWorkingCopyBrowser newApplication: context application model: self repositoryModel workingCopyModel) open.
+	browser := IceTipWorkingCopyBrowser newApplication: context application model: self repositoryModel workingCopyModel.
 
-	self class shouldGroupRepositories ifFalse: [ ^ self ].
+	self class shouldGroupRepositories ifFalse: [ ^ browser open ].
 
-	group := (self currentWorld windowsSatisfying: [ :window | window label = 'Iceberg Repositories' ])
+	group := (self currentWorld windowsSatisfying: [ :window | window label = IceTipWorkingCopiesBrowser title ])
 		         ifEmpty: [
-				         | window |
-				         window := GroupWindowMorph new.
-				         (window openInWindowLabeled: 'Iceberg Repositories') extent: 1200 @ 800.
-				         window ]
+				         | workingCopiesBrowser |
+				         workingCopiesBrowser := IceTipWorkingCopiesBrowser newApplication: context application.
+				         workingCopiesBrowser addProjectNamed: browser model repositoryName provider: [ browser ].
+				         workingCopiesBrowser open ]
 		         ifNotEmpty: [ :ws |
 				         | window |
 				         window := ws first.
+				         window model presenter addProjectNamed: browser model repositoryName provider: [ browser ].
 				         window isMinimized
 					         ifTrue: [ window restore ]
-					         ifFalse: [ window activate ].
-				         window paneMorphs first ].
-	group addWindow: browser window
+					         ifFalse: [ window activate ] ]
 ]
 
 { #category : 'accessing' }

@@ -126,6 +126,22 @@ IceTipBrowser >> initialize [
 	self subscribeToAnnouncements
 ]
 
+{ #category : 'as yet unclassified' }
+IceTipBrowser >> initializeToolbarWith: rootGroup [
+
+	toolbar := nil.
+	rootGroup commandOrGroupNamed: self class generalCommandGroupName ifFound: [ :subgroup |
+			| builder |
+			subgroup beRoot.
+			builder := IceTipToolbarPresenterBuilder new.
+			builder visit: subgroup.
+			builder toolbarPresenter
+				displayMode: self application toolbarDisplayMode;
+				addStyle: 'stToolbar'.
+			builder toolbarPresenter isEmpty ifFalse: [ toolbar := builder toolbarPresenter ] ].
+	^ toolbar
+]
+
 { #category : 'initialization' }
 IceTipBrowser >> initializeWindow: aSpWindowPresenter [
 
@@ -214,22 +230,7 @@ IceTipBrowser >> refreshToolbarWith: rootGroup [
 	"Update toolbar (in window)."
 
 	self hasWindow ifFalse: [ ^ self ].
-
-	toolbar := nil.
-	rootGroup
-		commandOrGroupNamed: self class generalCommandGroupName
-		ifFound: [ :subgroup | 
-			| builder |
-			subgroup beRoot.
-			builder := IceTipToolbarPresenterBuilder new.
-			builder visit: subgroup.
-
-			builder toolbarPresenter
-				displayMode: self application toolbarDisplayMode;
-				addStyle: 'stToolbar'.
-			builder toolbarPresenter isEmpty ifFalse: [
-				toolbar := builder toolbarPresenter ] ].
-
+	self initializeToolbarWith: rootGroup.
 	self window toolbar: toolbar
 ]
 
